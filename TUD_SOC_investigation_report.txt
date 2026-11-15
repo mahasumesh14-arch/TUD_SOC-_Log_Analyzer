@@ -1,0 +1,72 @@
+TUD SOC SECURITY INVESTIGATION REPORT
+==============================
+
+1. FIREWALL LOG ANALYSIS
+------------------------------
+total_events: 893
+allowed: 522
+blocked: 371
+unique_source_ips: 203
+top_blocked_ips: [('203.0.113.55', 78), ('203.0.113.77', 23), ('198.51.100.77', 22), ('203.0.113.90', 20), ('192.168.1.34', 5), ('192.168.1.21', 5), ('192.168.1.23', 5), ('192.168.1.26', 5), ('10.0.0.11', 5), ('192.168.1.40', 5)]
+common_ports: [(443, 104), (8080, 100), (80, 93), (993, 90), (123, 87), (53, 85), (445, 85), (22, 81), (587, 79), (3389, 77)]
+Wrongly formatted firewall lines: 6
+
+2. AUTHENTICATION LOG ANALYSIS
+------------------------------
+total_events: 516
+successful_logins: 313
+failed_logins: 164
+account_lockouts: 5
+other_events: 34
+frequently_failed_ips: [('198.51.100.23', 46), ('203.0.113.55', 20), ('203.0.113.77', 17), ('192.168.1.20', 4), ('192.168.1.30', 3), ('10.0.0.25', 3), ('10.0.0.14', 3), ('10.0.0.19', 3), ('192.168.1.31', 3), ('10.0.0.21', 3)]
+frequently_failed_users: [('admin', 53), ('svc_backup', 28), ('root', 15), ('bob', 14), ('carol', 14), ('david', 12), ('alice', 12), ('administrator', 9), ('student', 7)]
+Wrongly formatted auth lines: 3
+
+3. SUSPICIOUS IP INVESTIGATION
+------------------------------
+Matching suspicious IP addresses: 7
+
+IP Address: 203.0.113.12
+Firewall source events: 1
+Firewall destination events: 0
+Authentication source events: 0
+
+IP Address: 198.51.100.77
+Firewall source events: 30
+Firewall destination events: 0
+Authentication source events: 0
+
+IP Address: 203.0.113.55
+Firewall source events: 79
+Firewall destination events: 0
+Authentication source events: 20
+
+IP Address: 198.51.100.18
+Firewall source events: 3
+Firewall destination events: 0
+Authentication source events: 1
+
+IP Address: 203.0.113.90
+Firewall source events: 20
+Firewall destination events: 0
+Authentication source events: 0
+
+IP Address: 198.51.100.23
+Firewall source events: 1
+Firewall destination events: 0
+Authentication source events: 51
+
+IP Address: 203.0.113.77
+Firewall source events: 25
+Firewall destination events: 0
+Authentication source events: 18
+
+4. SECURITY OBSERVATIONS
+------------------------------
+1. Wrongly formatted log entries: A total of 6 malformed firewall log entries were identified during parsing.
+
+2. Potential brute-force activity: The suspicious IP address 198.51.100.23 generated 51 authentication events, including 46 failed login attempts. This repeated authentication failure pattern may indicate a possible brute-force attack and requires further investigation.
+
+3. Frequently targeted destination ports: Ports 443, 8080 and 80 recorded 104, 100 and 93 events respectively.
+
+END OF REPORT
